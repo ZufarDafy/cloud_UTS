@@ -40,6 +40,8 @@ jobs:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script_stop: true  # Stop jika error
+        debug: true  # Mode verbose
         script: |
           cd /var/www/frontend
           git pull origin main
