@@ -26,24 +26,15 @@ jobs:
       working-directory: ./
       run: npm run build
 
-  deploy-to-ec2:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Deploy to EC2
-      uses: appleboy/ssh-action@v0.1.10
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script_stop: true  # Stop jika error
-        debug: true  # Mode verbose
-        script: |
-          cd /var/www/frontend
-          git pull origin main
-          npm install --prefix ./
-          npm run build --prefix ./
+- name: Deploy to EC2
+  uses: appleboy/ssh-action@v0.1.10
+  timeout-minutes: 5  # Tambah timeout
+  with:
+    host: ${{ secrets.EC2_HOST }}
+    username: ${{ secrets.EC2_USER }}
+    key: ${{ secrets.SSH_PRIVATE_KEY }}
+    script_stop: true  # Stop jika error
+    debug: true  # Mode verbose
+    script: |
+      echo "Connected successfully!"
+      whoami
