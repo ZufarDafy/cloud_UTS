@@ -19,11 +19,11 @@ jobs:
         cache: 'npm'
 
     - name: Install Frontend Dependencies
-      working-directory: ./frontend
+      working-directory: ./
       run: npm install
 
     - name: Build Frontend
-      working-directory: ./frontend
+      working-directory: ./
       run: npm run build
 
   deploy-to-ec2:
