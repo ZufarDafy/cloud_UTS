@@ -26,15 +26,15 @@ jobs:
       working-directory: ./
       run: npm run build
 
-- name: Deploy to EC2
-  uses: appleboy/ssh-action@v0.1.10
-  timeout-minutes: 5  # Tambah timeout
-  with:
-    host: ${{ secrets.EC2_HOST }}
-    username: ${{ secrets.EC2_USER }}
-    key: ${{ secrets.SSH_PRIVATE_KEY }}
-    script_stop: true  # Stop jika error
-    debug: true  # Mode verbose
-    script: |
-      echo "Connected successfully!"
-      whoami
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@v0.1.10
+      timeout-minutes: 5  # Tambah timeout
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script_stop: true  # Stop jika error
+        debug: true  # Mode verbose
+        script: |
+         echo "Connected successfully!"
+         whoami
