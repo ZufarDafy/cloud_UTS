@@ -26,15 +26,11 @@ jobs:
       working-directory: ./
       run: npm run build
 
-    - name: Deploy to EC2
-      uses: appleboy/ssh-action@v0.1.10
-      timeout-minutes: 5  # Tambah timeout
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3
       with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script_stop: true  # Stop jika error
-        debug: true  # Mode verbose
-        script: |
-         echo "Connected successfully!"
-         whoami
+        ssh-private-key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+
+    - name: Deploy on EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no ubuntu@13.211.206.227 "echo 'Berhasil'"
